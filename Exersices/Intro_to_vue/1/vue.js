@@ -1,6 +1,7 @@
 const app = new Vue({
     el: "#app",
     data: {
-        title:"vue"
+        title:"vue",
+        text:"some text"
     }
 })
