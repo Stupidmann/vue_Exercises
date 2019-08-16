@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Rendering</title>
+    <title>Event Handling</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
             <div class="product-info">
                 <h1>{{ product }}</h1>
 
-                <span v-show="onSale">On Sale!</span>
+                <span v-if="onSale">On Sale!</span>
                 <p v-else>Out of Stock</p>
                 
                 <ul>
@@ -30,13 +30,21 @@
                 </ul>
 
                 <div v-for="variant in variants" :key="variant.variantId">
-                    <p>{{ variant.variantColor}}</p>
+                    <p @mouseover= "updateProduct(variant.variantImage)">{{ variant.variantColor}}</p>
                 </div>
 
                 <ul v-for="size in sizes" :key="sizes.sizesId">
                     <li>{{size.size}}</li>
                 </ul>
-                
+
+                <!--<button v-on:click="cart+=1">Add to Cart</button>-->
+                <button v-on:click="addToCart">Add to Cart</button>
+                <button @click="removeFromCart">Remove From Cart</button>
+
+                <div class="cart">
+                    <p>Cart({{cart}})</p>
+                </div>
+
             </div>
             
         </div>

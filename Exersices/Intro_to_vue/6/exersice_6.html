@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Rendering</title>
+    <title>Class & Style Binding</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,21 +22,38 @@
             <div class="product-info">
                 <h1>{{ product }}</h1>
 
-                <span v-show="onSale">On Sale!</span>
-                <p v-else>Out of Stock</p>
-                
+                <span v-if="onSale">On Sale!</span>
+                <p v-else
+                    :class="{outOfStock: !onSale}">Out of Stock</p>
+                    <!--No pude resolver esto sin mirar la solucion-->
                 <ul>
                     <li v-for="detail in details"> {{detail}} </li>
                 </ul>
 
-                <div v-for="variant in variants" :key="variant.variantId">
-                    <p>{{ variant.variantColor}}</p>
+                <div v-for="variant in variants" 
+                    :key="variant.variantId"
+                    class="color-box"
+                    :style="{ backgroundColor:variant.variantColor}"
+                    @mouseover= "updateProduct(variant.variantImage)">
                 </div>
 
                 <ul v-for="size in sizes" :key="sizes.sizesId">
                     <li>{{size.size}}</li>
                 </ul>
-                
+
+                <button v-on:click="addToCart" 
+                    :disabled = "!onSale" 
+                    :class = "{disabledButton:!onSale}">
+                    Add to Cart</button>
+                <button @click="removeFromCart" 
+                    :disabled = "!onSale"
+                    :class = "{disabledButton:!onSale}"
+                    >Remove From Cart</button>
+
+                <div class="cart">
+                    <p>Cart({{cart}})</p>
+                </div>
+
             </div>
             
         </div>
